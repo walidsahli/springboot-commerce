@@ -1,4 +1,4 @@
-package com.project.commerce.Models;
+package com.project.commerce.Models.Utils;
 
 public class AuthenticationResponse {
 	

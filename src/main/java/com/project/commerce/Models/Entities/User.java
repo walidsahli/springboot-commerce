@@ -1,13 +1,19 @@
-package com.project.commerce.Models;
+package com.project.commerce.Models.Entities;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,7 +22,7 @@ import javax.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity(name = "user")
+@Entity(name = "users")
 public class User implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
@@ -44,15 +50,29 @@ public class User implements UserDetails {
 	
 	@NotNull
 	private String password;
-	
+
 	@Size(max = 8 , min= 8)
 	private String phoneNumber;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(	name = "user_roles", 
+				joinColumns = @JoinColumn(name = "user_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 
 	private double latitude;
 	private double longitude;
 	private String location;
 	
 	public User () {}
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 	
 	public String getEmail() {
 		return email;
@@ -127,6 +147,13 @@ public class User implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities =  Collections.emptyList();
 		return  authorities;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", password=" + password + ", phoneNumber=" + phoneNumber + ", roles="
+				+ roles + ", latitude=" + latitude + ", longitude=" + longitude + ", location=" + location + "]";
 	}
 
 	@Override

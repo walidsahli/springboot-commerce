@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.commerce.Models.AuthenticationRequest;
-import com.project.commerce.Models.User;
+import com.project.commerce.Models.Utils.AuthenticationRequest;
+import com.project.commerce.Models.Utils.RegisterRequest;
 import com.project.commerce.Services.AuthenticationService;
 
 @RestController
@@ -30,7 +30,7 @@ public class AuthenticationController {
 	}
 	
 	@PostMapping(path = "/register")
-	public ResponseEntity<?> register(@RequestBody @ Valid User user) throws Exception{
+	public ResponseEntity<?> register(@RequestBody @ Valid RegisterRequest user) throws Exception{
 		return service.Register(user);
 	}
 }

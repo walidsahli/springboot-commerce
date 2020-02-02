@@ -5,7 +5,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.project.commerce.Models.User;
+import com.project.commerce.Models.Entities.User;
+import com.project.commerce.Models.Utils.UserDetailsImp;
 import com.project.commerce.Repositories.UserRepository;
 
 @Component
@@ -15,8 +16,9 @@ public class UserDetailService implements UserDetailsService {
 	UserRepository repo;
 
 	@Override
-	public User loadUserByUsername(String username) throws UsernameNotFoundException {
-		return repo.findByUsername(username);
+	public UserDetailsImp loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user =  repo.findByUsername(username);
+		return UserDetailsImp.build(user);
 	}
 
 }

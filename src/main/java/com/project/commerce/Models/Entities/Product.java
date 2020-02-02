@@ -1,4 +1,4 @@
-package com.project.commerce.Models;
+package com.project.commerce.Models.Entities;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
