@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Entity(name = "product")
 public class Product {
@@ -29,6 +30,9 @@ public class Product {
 	@NotNull(message = "category is required")
 	@ManyToOne(fetch =FetchType.EAGER,optional = false)
 	private Category category;
+	
+	
+	private String imageUrl;
 	
 	
 	public Product () {}
